@@ -1,0 +1,46 @@
+[
+  {
+    "id": "d4511d4b-f038-4b55-83ce-0a5fc47b18fd",
+    "userId": "fd030127-8299-427d-9d6a-3be05c4f6151",
+    "items": [
+      {
+        "productId": "8",
+        "productName": "USB-C Hub",
+        "quantity": 1,
+        "price": 39.99,
+        "purchaseOption": "standard",
+        "total": 39.99
+      },
+      {
+        "productId": "5",
+        "productName": "Wireless Mouse",
+        "quantity": 1,
+        "price": 49.99,
+        "purchaseOption": "standard",
+        "total": 49.99
+      },
+      {
+        "productId": "6",
+        "productName": "Phone Case - Clear",
+        "quantity": 1,
+        "price": 24.99,
+        "purchaseOption": "standard",
+        "total": 24.99
+      }
+    ],
+    "subtotal": 114.97,
+    "discount": 0,
+    "total": 114.97,
+    "couponCode": null,
+    "shippingAddress": {
+      "street": "692 B block panki kanpur",
+      "city": "Kanpur",
+      "state": "Uttar Pradesh",
+      "zip": "208020",
+      "country": "India"
+    },
+    "paymentMethod": "card",
+    "status": "pending",
+    "createdAt": "2025-11-02T19:44:50.137Z"
+  }
+]

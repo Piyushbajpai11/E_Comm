@@ -1,0 +1,48 @@
+services:
+  mongo:
+    image: mongo:6.0
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - 27017:27017
+
+  backend:
+    build:
+      context: ./server
+    container_name: ecomm-backend
+    depends_on:
+      - mongo
+    environment:
+      NODE_ENV: development
+      MONGO_URI: mongodb://mongo:27017/ecomm
+    ports:
+      - 5000:5000
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5000/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./client
+    container_name: ecomm-frontend
+    depends_on:
+      - backend
+    ports:
+      - 3000:80
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "--spider", "http://localhost/" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  mongo-data:

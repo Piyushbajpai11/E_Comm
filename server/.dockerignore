@@ -1,0 +1,12 @@
+# .dockerignore (backend/frontend)
+node_modules
+dist
+.env
+*.log
+.git
+.gitignore
+Dockerfile*
+docker-compose*
+.vscode
+.idea
+npm-debug.log

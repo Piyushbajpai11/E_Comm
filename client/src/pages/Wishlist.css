@@ -1,0 +1,30 @@
+.wishlist-page {
+  padding: 40px 0;
+  min-height: calc(100vh - 80px);
+}
+
+.wishlist-count {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.empty-wishlist {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.empty-wishlist p {
+  font-size: 24px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+

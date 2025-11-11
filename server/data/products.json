@@ -1,0 +1,179 @@
+[
+  {
+    "id": "1",
+    "name": "Wireless Bluetooth Headphones",
+    "description": "Premium noise-cancelling wireless headphones with 30-hour battery life",
+    "price": 149.99,
+    "originalPrice": 199.99,
+    "category": "Electronics",
+    "brand": "TechSound",
+    "image": "https://via.placeholder.com/300x300?text=Headphones",
+    "stock": 50,
+    "rating": 4.5,
+    "reviews": 128,
+    "tags": [
+      "wireless",
+      "bluetooth",
+      "audio"
+    ],
+    "purchaseOptions": [
+      "standard",
+      "express",
+      "bundle"
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Smart Watch Pro",
+    "description": "Advanced fitness tracking with heart rate monitor and GPS",
+    "price": 299.99,
+    "originalPrice": 349.99,
+    "category": "Electronics",
+    "brand": "FitTech",
+    "image": "https://via.placeholder.com/300x300?text=Smart+Watch",
+    "stock": 30,
+    "rating": 4.7,
+    "reviews": 256,
+    "tags": [
+      "fitness",
+      "smartwatch",
+      "wearable"
+    ],
+    "purchaseOptions": [
+      "standard",
+      "premium"
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Laptop Backpack",
+    "description": "Waterproof laptop backpack with USB charging port",
+    "price": 79.99,
+    "originalPrice": 99.99,
+    "category": "Accessories",
+    "brand": "TravelGear",
+    "image": "https://via.placeholder.com/300x300?text=Backpack",
+    "stock": 75,
+    "rating": 4.3,
+    "reviews": 89,
+    "tags": [
+      "laptop",
+      "travel",
+      "backpack"
+    ],
+    "purchaseOptions": [
+      "standard"
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Mechanical Gaming Keyboard",
+    "description": "RGB backlit mechanical keyboard with Cherry MX switches",
+    "price": 129.99,
+    "originalPrice": 159.99,
+    "category": "Electronics",
+    "brand": "GameZone",
+    "image": "https://via.placeholder.com/300x300?text=Keyboard",
+    "stock": 40,
+    "rating": 4.6,
+    "reviews": 192,
+    "tags": [
+      "gaming",
+      "keyboard",
+      "rgb"
+    ],
+    "purchaseOptions": [
+      "standard",
+      "express",
+      "warranty"
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Wireless Mouse",
+    "description": "Ergonomic wireless mouse with precision tracking",
+    "price": 49.99,
+    "originalPrice": 69.99,
+    "category": "Electronics",
+    "brand": "TechPoint",
+    "image": "https://via.placeholder.com/300x300?text=Mouse",
+    "stock": 100,
+    "rating": 4.4,
+    "reviews": 156,
+    "tags": [
+      "wireless",
+      "mouse",
+      "ergonomic"
+    ],
+    "purchaseOptions": [
+      "standard",
+      "express"
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Phone Case - Clear",
+    "description": "Protective clear case with shock absorption",
+    "price": 24.99,
+    "originalPrice": 34.99,
+    "category": "Accessories",
+    "brand": "ProtectPlus",
+    "image": "https://via.placeholder.com/300x300?text=Phone+Case",
+    "stock": 200,
+    "rating": 4.2,
+    "reviews": 234,
+    "tags": [
+      "phone",
+      "case",
+      "protection"
+    ],
+    "purchaseOptions": [
+      "standard",
+      "bulk"
+    ]
+  },
+  {
+    "id": "7",
+    "name": "4K Monitor 27\"",
+    "description": "Ultra HD 4K monitor with HDR support",
+    "price": 399.99,
+    "originalPrice": 499.99,
+    "category": "Electronics",
+    "brand": "DisplayPro",
+    "image": "https://via.placeholder.com/300x300?text=Monitor",
+    "stock": 25,
+    "rating": 4.8,
+    "reviews": 312,
+    "tags": [
+      "monitor",
+      "4k",
+      "display"
+    ],
+    "purchaseOptions": [
+      "standard",
+      "express",
+      "warranty"
+    ]
+  },
+  {
+    "id": "8",
+    "name": "USB-C Hub",
+    "description": "Multi-port USB-C hub with HDMI, USB 3.0, and SD card reader",
+    "price": 39.99,
+    "originalPrice": 59.99,
+    "category": "Accessories",
+    "brand": "ConnectPro",
+    "image": "https://via.placeholder.com/300x300?text=USB+Hub",
+    "stock": 150,
+    "rating": 4.5,
+    "reviews": 178,
+    "tags": [
+      "usb",
+      "hub",
+      "adapter"
+    ],
+    "purchaseOptions": [
+      "standard"
+    ]
+  }
+]
