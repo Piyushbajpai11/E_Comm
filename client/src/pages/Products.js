@@ -23,11 +23,11 @@ const Products = () => {
   useEffect(() => {
     fetchProducts();
     fetchFilters();
-  }, []);
+  }, [fetchProducts, fetchFilters]);
 
   useEffect(() => {
     applyFilters();
-  }, [filters, products]);
+  }, [filters, products, applyFilters]);
 
   const fetchProducts = async () => {
     try {
@@ -115,7 +115,7 @@ const Products = () => {
     <div className="products-page">
       <div className="container">
         <h1 className="page-title">All Products</h1>
-        
+
         <div className="products-layout">
           <aside className="filters-sidebar">
             <div className="filters-header">

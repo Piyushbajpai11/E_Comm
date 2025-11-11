@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     fetchCart();
-  }, [user]);
+  }, [user, fetchCart]);
 
   const addToCart = async (productId, quantity = 1, purchaseOption = 'standard') => {
     if (!user) {
@@ -46,9 +46,9 @@ export const CartProvider = ({ children }) => {
       await fetchCart();
       return { success: true };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.error || 'Failed to add to cart' 
+      return {
+        success: false,
+        error: error.response?.data?.error || 'Failed to add to cart'
       };
     }
   };

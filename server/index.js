@@ -96,20 +96,20 @@ app.get('/health', (req, res) => {
 });
 
 // graceful shutdown
-const server = app.listen(process.env.PORT || 4000, () =>
-  console.log('API up')
-);
+// const server = app.listen(process.env.PORT || 4000, () =>
+//   console.log('API up')
+// );
 
-const shutdown = (signal) => {
-  console.log(`Received ${signal}, shutting down...`);
-  server.close(() => {
-    console.log('HTTP server closed');
-    // close DB if needed: await mongoose.connection.close()
-    process.exit(0);
-  });
-  // force exit if not closed in time
-  setTimeout(() => process.exit(1), 10000).unref();
-};
+// const shutdown = (signal) => {
+//   console.log(`Received ${signal}, shutting down...`);
+//   server.close(() => {
+//     console.log('HTTP server closed');
+//     // close DB if needed: await mongoose.connection.close()
+//     process.exit(0);
+//   });
+//   // force exit if not closed in time
+//   setTimeout(() => process.exit(1), 10000).unref();
+// };
 
 ['SIGINT', 'SIGTERM'].forEach(sig => process.on(sig, () => shutdown(sig)));
 
@@ -618,7 +618,19 @@ app.get('/api/orders', authenticateToken, async (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`API available at http://localhost:${PORT}/api`);
 });
+
+// graceful shutdown
+const shutdown = (signal) => {
+  console.log(`Received ${signal}, shutting down...`);
+  server.close(() => {
+    console.log('HTTP server closed');
+    process.exit(0);
+  });
+  setTimeout(() => process.exit(1), 10000).unref();
+};
+
+['SIGINT', 'SIGTERM'].forEach(sig => process.on(sig, () => shutdown(sig)));

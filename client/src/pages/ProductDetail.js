@@ -18,9 +18,6 @@ const ProductDetail = () => {
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const { user } = useAuth();
 
-  useEffect(() => {
-    fetchProduct();
-  }, [id]);
 
   const fetchProduct = async () => {
     try {
@@ -36,6 +33,10 @@ const ProductDetail = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchProduct();
+  }, [id, fetchProduct]);
 
   const handleAddToCart = async () => {
     if (!selectedOption) {
@@ -90,7 +91,7 @@ const ProductDetail = () => {
           <div className="product-info-section">
             <h1>{product.name}</h1>
             <p className="product-brand">{product.brand}</p>
-            
+
             <div className="product-rating">
               <div className="stars">
                 {Array.from({ length: 5 }).map((_, i) => (

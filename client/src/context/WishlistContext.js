@@ -35,7 +35,7 @@ export const WishlistProvider = ({ children }) => {
 
   useEffect(() => {
     fetchWishlist();
-  }, [user]);
+  }, [user, fetchWishlist]);
 
   const addToWishlist = async (productId) => {
     if (!user) {
@@ -46,9 +46,9 @@ export const WishlistProvider = ({ children }) => {
       await fetchWishlist();
       return { success: true };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.error || 'Failed to add to wishlist' 
+      return {
+        success: false,
+        error: error.response?.data?.error || 'Failed to add to wishlist'
       };
     }
   };
