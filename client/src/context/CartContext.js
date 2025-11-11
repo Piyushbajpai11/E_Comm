@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import api from '../utils/api';
 import { useAuth } from './AuthContext';
 
@@ -17,7 +17,7 @@ export const CartProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
-  const fetchCart = async () => {
+  const fetchCart = useCallback(async () => {
     if (!user) {
       setCart({ items: [] });
       return;
@@ -31,11 +31,11 @@ export const CartProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     fetchCart();
-  }, [user, fetchCart]);
+  }, [fetchCart]);
 
   const addToCart = async (productId, quantity = 1, purchaseOption = 'standard') => {
     if (!user) {
@@ -109,4 +109,3 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
-

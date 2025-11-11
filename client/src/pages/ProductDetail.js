@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../utils/api';
 import { useCart } from '../context/CartContext';
@@ -18,8 +18,7 @@ const ProductDetail = () => {
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const { user } = useAuth();
 
-
-  const fetchProduct = async () => {
+  const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
       const response = await api.get(`/products/${id}`);
@@ -32,11 +31,11 @@ const ProductDetail = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchProduct();
-  }, [id, fetchProduct]);
+  }, [fetchProduct]);
 
   const handleAddToCart = async () => {
     if (!selectedOption) {
@@ -198,4 +197,3 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
-

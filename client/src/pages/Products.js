@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import api from '../utils/api';
 import ProductCard from '../components/ProductCard';
 import { FaFilter, FaDollarSign, FaStar, FaFire, FaSort, FaTags, FaBuilding } from 'react-icons/fa';
@@ -18,18 +18,8 @@ const Products = () => {
   });
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
-  const [subcategories, setSubcategories] = useState([]);
 
-  useEffect(() => {
-    fetchProducts();
-    fetchFilters();
-  }, [fetchProducts, fetchFilters]);
-
-  useEffect(() => {
-    applyFilters();
-  }, [filters, products, applyFilters]);
-
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams();
@@ -46,20 +36,19 @@ const Products = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters]);
 
-  const fetchFilters = async () => {
+  const fetchFilters = useCallback(async () => {
     try {
       const response = await api.get('/products/categories/list');
       setCategories(response.data.categories || []);
       setBrands(response.data.brands || []);
-      setSubcategories(response.data.subcategories || []);
     } catch (error) {
       console.error('Failed to fetch filters:', error);
     }
-  };
+  }, []);
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filtered = [...products];
 
     if (filters.category) {
@@ -94,7 +83,16 @@ const Products = () => {
     }
 
     setFilteredProducts(filtered);
-  };
+  }, [filters, products]);
+
+  useEffect(() => {
+    fetchProducts();
+    fetchFilters();
+  }, [fetchProducts, fetchFilters]);
+
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
 
   const handleFilterChange = (key, value) => {
     setFilters(prev => ({ ...prev, [key]: value }));
@@ -261,4 +259,3 @@ const Products = () => {
 };
 
 export default Products;
-
