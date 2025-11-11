@@ -1,0 +1,86 @@
+name: CI - Build, Scan & Push
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  build-scan-push:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_SERVER: ${{ vars.DOCKERHUB_NAMESPACE }}/ecomm-server
+      IMAGE_CLIENT: ${{ vars.DOCKERHUB_NAMESPACE }}/ecomm-client
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ----- Test & Lint (server) -----
+      - name: Use Node 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: |
+            services/server/package-lock.json
+            services/client/package-lock.json
+
+      - name: Install & test (server)
+        working-directory: services/server
+        run: |
+          npm ci
+          npm test --if-present
+          npm run lint --if-present
+
+      - name: Install & build (client)
+        working-directory: services/client
+        run: |
+          npm ci
+          npm run build
+
+      # ----- Login Docker Hub -----
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # ----- Build & Push: server -----
+      - name: Build & Push server
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/server
+          push: true
+          tags: |
+            ${{ env.IMAGE_SERVER }}:${{ github.sha }}
+            ${{ env.IMAGE_SERVER }}:latest
+
+      # ----- Scan server image -----
+      - name: Trivy scan (server)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.IMAGE_SERVER }}:${{ github.sha }}
+          format: 'table'
+          exit-code: '0'   # set to '1' later to fail builds on high vulns
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
+      # ----- Build & Push: client -----
+      - name: Build & Push client
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/client
+          push: true
+          tags: |
+            ${{ env.IMAGE_CLIENT }}:${{ github.sha }}
+            ${{ env.IMAGE_CLIENT }}:latest
+
+      # ----- Scan client image -----
+      - name: Trivy scan (client)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.IMAGE_CLIENT }}:${{ github.sha }}
+          format: 'table'
+          exit-code: '0'
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
