@@ -15,16 +15,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # ----- Test & Lint (server) -----
+      # ----- Setup Node -----
       - name: Use Node 18
         uses: actions/setup-node@v4
         with:
           node-version: "18"
-          cache: "npm"
-          cache-dependency-path: |
-            services/server/package-lock.json
-            services/client/package-lock.json
 
+      # ----- Cache Dependencies -----
+      - name: Cache server node_modules
+        uses: actions/cache@v3
+        with:
+          path: services/server/node_modules
+          key: server-${{ hashFiles('services/server/package-lock.json') }}
+
+      - name: Cache client node_modules
+        uses: actions/cache@v3
+        with:
+          path: services/client/node_modules
+          key: client-${{ hashFiles('services/client/package-lock.json') }}
+
+      # ----- Test & Build -----
       - name: Install & test (server)
         working-directory: services/server
         run: |
