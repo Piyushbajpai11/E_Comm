@@ -15,35 +15,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # ----- Setup Node -----
+      # ----- Test & Lint (server) -----
       - name: Use Node 18
         uses: actions/setup-node@v4
         with:
           node-version: "18"
+          cache: "npm"
+          cache-dependency-path: |
+            server/package-lock.json
+            client/package-lock.json
 
-      # ----- Cache Dependencies -----
-      - name: Cache server node_modules
-        uses: actions/cache@v3
-        with:
-          path: services/server/node_modules
-          key: server-${{ hashFiles('services/server/package-lock.json') }}
-
-      - name: Cache client node_modules
-        uses: actions/cache@v3
-        with:
-          path: services/client/node_modules
-          key: client-${{ hashFiles('services/client/package-lock.json') }}
-
-      # ----- Test & Build -----
       - name: Install & test (server)
-        working-directory: services/server
+        working-directory: server  # ← CHANGED from services/server
         run: |
           npm ci
           npm test --if-present
           npm run lint --if-present
 
       - name: Install & build (client)
-        working-directory: services/client
+        working-directory: client  # ← CHANGED from services/client
         run: |
           npm ci
           npm run build
@@ -59,7 +49,7 @@ jobs:
       - name: Build & Push server
         uses: docker/build-push-action@v5
         with:
-          context: ./services/server
+          context: ./server  # ← CHANGED from ./services/server
           push: true
           tags: |
             ${{ env.IMAGE_SERVER }}:${{ github.sha }}
@@ -71,7 +61,7 @@ jobs:
         with:
           image-ref: ${{ env.IMAGE_SERVER }}:${{ github.sha }}
           format: 'table'
-          exit-code: '0'   # set to '1' later to fail builds on high vulns
+          exit-code: '0'
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
 
@@ -79,7 +69,7 @@ jobs:
       - name: Build & Push client
         uses: docker/build-push-action@v5
         with:
-          context: ./services/client
+          context: ./client  # ← CHANGED from ./services/client
           push: true
           tags: |
             ${{ env.IMAGE_CLIENT }}:${{ github.sha }}
