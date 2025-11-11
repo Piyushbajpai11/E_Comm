@@ -9,8 +9,8 @@ jobs:
   build-scan-push:
     runs-on: ubuntu-latest
     env:
-      IMAGE_SERVER: ${{ vars.DOCKERHUB_NAMESPACE }}/ecomm-server
-      IMAGE_CLIENT: ${{ vars.DOCKERHUB_NAMESPACE }}/ecomm-client
+      IMAGE_SERVER: ${{ secrets.DOCKERHUB_USERNAME }}/ecomm-server
+      IMAGE_CLIENT: ${{ secrets.DOCKERHUB_USERNAME }}/ecomm-client
     steps:
       - name: Checkout
         uses: actions/checkout@v4
